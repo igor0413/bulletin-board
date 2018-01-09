@@ -1,11 +1,12 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
 	entry: "./src/index.js",
 	output: {
-    path: path.resolve(__dirname,"/dist/assets"),
-		filename: "bundle.js",
-		publicPath: "assets"
+    path: path.resolve(__dirname,"dist"),
+		filename: "app.js"
 	},
 	devServer: {
 		inline: true,
@@ -38,5 +39,14 @@ module.exports = {
         ]
       },
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      path: path.resolve(__dirname, './dist')
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ],
+  devtool: "eval"
+
 }
